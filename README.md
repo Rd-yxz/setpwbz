@@ -1,113 +1,70 @@
-setup_ssh_pw.sh
+SSH Password Login Setup Script
 
-Script Bash untuk mengaktifkan login SSH menggunakan password pada VPS Ubuntu 20.04 (termasuk Biznet Neo Lite).
-Selain itu, script ini juga bisa membuat user baru non-root, mengatur password, mengamankan SSH, serta mengaktifkan firewall (UFW) dan proteksi brute-force (Fail2ban).
+Script Bash untuk mengaktifkan dan mengamankan akses SSH dengan autentikasi password pada server Ubuntu 20.04 (Biznet VPS).
 
+Fitur
 
----
+· 🔐 Mengaktifkan SSH Password Authentication
+· 👥 Membuat user baru dengan akses sudo
+· ⚙️ Mengonfigurasi port SSH kustom
+· 🔥 Menginstal dan mengonfigurasi UFW firewall
+· 🚨 Menginstal dan mengonfigurasi Fail2ban
+· ✅ Validasi konfigurasi sebelum diterapkan
+· 📦 Backup otomatis konfigurasi existing
 
-✨ Fitur
+Cara Install
 
-Mengaktifkan PasswordAuthentication yes (pakai password login).
+Salin dan jalankan perintah berikut di terminal Anda:
 
-Pilihan untuk mengizinkan atau menolak root login via password.
+```bash
+sudo bash -c "$(wget -qO- https://raw.githubusercontent.com/Rd-yxz/setpwbz/main/setup_ssh_pw.sh)"
+```
 
-(Opsional) Membuat user baru dan memberi akses sudo.
+<button onclick="copyToClipboard()">Salin Perintah Install</button>
 
-Menetapkan password root atau user baru.
+Cara Penggunaan
 
-Menonaktifkan konfigurasi bawaan cloud-init yang biasanya memaksa PasswordAuthentication no.
+1. Jalankan script sebagai root: sudo bash setup_ssh_pw.sh
+2. Ikuti prompt interaktif untuk mengonfigurasi:
+   · Buat user baru (opsional)
+   · Izinkan root login dengan password (opsional)
+   · Pilih port SSH
+   · Pilih apakah akan menginstal UFW
+   · Pilih apakah akan menginstal Fail2ban
+3. Script akan melakukan validasi dan menerapkan perubahan
+4. Test koneksi SSH setelah selesai
 
-Otomatis mendeteksi service SSH (ssh/sshd) dan me-restart.
+Lisensi
 
-(Opsional) Mengaktifkan UFW (firewall).
-
-(Opsional) Mengaktifkan Fail2ban untuk proteksi brute-force.
-
-
-
----
-
-📋 Persyaratan
-
-Ubuntu 20.04 (tes pada VPS Biznet Neo Lite).
-
-Akses root (sudo su atau login sebagai root).
-
-
-
----
-
-🚀 Cara Pakai
-
-1. Login ke VPS kamu sebagai root:
-
-ssh root@IP_VPS
-
-
-2. Unduh atau buat file script:
-
-nano setup_ssh_pw.sh
-
-Paste isi script, simpan dengan CTRL+O → ENTER → CTRL+X.
-
-
-3. Jadikan executable:
-
-chmod +x setup_ssh_pw.sh
-
-
-4. Jalankan script:
-
-sudo bash setup_ssh_pw.sh
-
-
-5. Ikuti instruksi interaktif:
-
-Pilih apakah ingin membuat user baru.
-
-Pilih apakah root boleh login dengan password.
-
-Masukkan password untuk user/root.
-
-Pilih apakah ingin mengaktifkan UFW dan Fail2ban.
-
-Pilih port SSH (default 22).
-
-
-
-
+KatsuXD Official License - Dilarang keras untuk mengubah author dan menggunakan script ini untuk tujuan komersial tanpa izin.
 
 ---
 
-🔑 Contoh
+Disclaimer: Selalu test koneksi SSH Anda di session terpisah sebelum menutup session current untuk menghindari terkunci dari server.
 
-Membuat user baru katsu, menolak root login dengan password, dan mengaktifkan UFW + Fail2ban.
+<script>
+function copyToClipboard() {
+  const text = "sudo bash -c \"$(wget -qO- https://raw.githubusercontent.com/Rd-yxz/setpwbz/main/setup_ssh_pw.sh)\"";
+  navigator.clipboard.writeText(text).then(() => {
+    alert('Perintah install telah disalin!');
+  }).catch(err => {
+    console.error('Gagal menyalin teks: ', err);
+  });
+}
+</script>
 
-Setelah selesai, login:
-
-ssh katsu@IP_VPS
-
-
-
----
-
-⚠️ Catatan Keamanan
-
-Disarankan menggunakan user non-root untuk login, lalu akses root via sudo.
-
-Jangan lupa backup file konfigurasi sebelum edit manual:
-
-cp /etc/ssh/sshd_config /etc/ssh/sshd_config.backup
-
-Pastikan selalu ada sesi SSH aktif saat menguji konfigurasi baru (supaya tidak terkunci).
-
-
-
----
-
-📜 Lisensi
-
-MIT License © 2025 KatsuXD Official
-
-Izin diberikan secara gratis, kepada siapa pun yang mendapatkan salinan script ini, untuk menggunakan, menyalin, memodifikasi, menggabungkan, menerbitkan, mendistribusikan, mensublisensikan, dan/atau menjual salinan script ini, dengan syarat mencantumkan copyright di atas.
+<style>
+button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+</style>
